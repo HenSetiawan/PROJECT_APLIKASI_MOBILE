@@ -1,0 +1,7 @@
+{
+  "name": "PMI-BON",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
