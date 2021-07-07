@@ -83,18 +83,31 @@
       </ion-grid>
       <ion-list>
         <ion-item href="/tabs/tab3">
-          <ion-card>
-            <img src="https://vuejs.org/images/logo.svg" />
-            <ion-card-header>
-              <ion-card-subtitle>Destination</ion-card-subtitle>
-              <ion-card-title>Madison, WI</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              Founded in 1829 on an isthmus between Lake Monona and Lake
-              Mendota, Madison was named the capital of the Wisconsin Territory
-              in 1836.
-            </ion-card-content>
-          </ion-card>
+          <ion-thumbnail item-start>
+            <img src="https://vuejs.org/images/logo.svg">
+          </ion-thumbnail>      
+          <ion-label>
+            <h2>Blogs Title</h2>
+            <p>Ionic Framework is an open source UI toolkit for building performant, high-quality mobile and desktop apps using web technologies</p>
+          </ion-label>
+        </ion-item>
+        <ion-item href="/tabs/tab3">
+          <ion-thumbnail item-start>
+            <img src="https://vuejs.org/images/logo.svg">
+          </ion-thumbnail>
+          <ion-label>
+            <h3>Blogs Title</h3>
+            <p>Ionic Framework is an open source UI toolkit for building performant, high-quality mobile and desktop apps using web technologies</p>
+          </ion-label>
+        </ion-item>
+        <ion-item href="/tabs/tab3">
+          <ion-thumbnail item-start>
+            <img src="https://vuejs.org/images/logo.svg">
+          </ion-thumbnail>      
+          <ion-label>
+            <h2>Blogs Title</h2>
+            <p>Ionic Framework is an open source UI toolkit for building performant, high-quality mobile and desktop apps using web technologies</p>
+          </ion-label>
         </ion-item>
       </ion-list>
       <ion-grid class="container">
@@ -191,14 +204,23 @@ export default {
   background-color: rgb(206, 197, 197) !important;
   margin: 15px 0 15px 0 !important;
 }
-img {
+/* img {
   width: 150px !important;
   height: 150px !important;
   margin: auto !important;
   display: block;
-}
+} */
 
 h5 {
   margin-left: 28px !important;
+}
+
+ion-list {
+  margin: 20px;
+  border-radius: 5px;
+}
+
+ion-list ion-label {
+  padding: 10px;
 }
 </style>
