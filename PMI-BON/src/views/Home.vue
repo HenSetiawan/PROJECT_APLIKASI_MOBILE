@@ -97,6 +97,22 @@
           </ion-card>
         </ion-item>
       </ion-list>
+      <ion-grid class="container">
+        <ion-row class="thead">
+          <ion-col>Kategori</ion-col>
+          <ion-col>A</ion-col>
+          <ion-col>B</ion-col>
+          <ion-col>AB</ion-col>
+          <ion-col>O</ion-col>
+        </ion-row>
+        <ion-row v-for="blood in bloodData" :key="blood.id">
+          <ion-col>{{ blood.kategori }}</ion-col>
+          <ion-col>{{ blood.jumlah_gol_A }}</ion-col>
+          <ion-col>{{ blood.jumlah_gol_B }}</ion-col>
+          <ion-col>{{ blood.jumlah_gol_AB }}</ion-col>
+          <ion-col>{{ blood.jumlah_gol_O }}</ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
@@ -145,14 +161,44 @@ export default {
     IonList,
     IonItem,
   },
+  data() {
+    return {
+      bloodData: [],
+    };
+  },
+  created() {
+    const API = process.env.VUE_APP_API;
+    fetch(`${API}/v1/bloods`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.bloodData = data.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 };
 </script>
 
 <style scoped>
+.container {
+  width: 90% !important;
+  margin: auto !important;
+}
+.thead {
+  background-color: rgb(206, 197, 197) !important;
+  margin: 15px 0 15px 0 !important;
+}
 img {
   width: 150px !important;
   height: 150px !important;
   margin: auto !important;
   display: block;
+}
+
+h5 {
+  margin-left: 28px !important;
 }
 </style>
