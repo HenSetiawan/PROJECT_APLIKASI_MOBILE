@@ -12,58 +12,19 @@
         </ion-toolbar>
       </ion-header>
       <ion-slides pager="true">
-        <ion-slide>
+        <ion-slide v-for="event in eventsData" :key="event.id">
           <ion-grid>
             <ion-row>
               <ion-col>
                 <ion-card>
                   <ion-card-header>
-                    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-                    <ion-card-title>Card Title</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    Keep close to Nature's heart
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-              <ion-col>
-                <ion-card>
-                  <ion-card-header>
-                    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-                    <ion-card-title>Card Title</ion-card-title>
+                    <ion-card-title>{{ event.judul_agenda }}</ion-card-title>
+                    <ion-card-subtitle>{{ event.waktu }}</ion-card-subtitle>
+                     <ion-card-subtitle>{{ event.lokasi }}</ion-card-subtitle>
                   </ion-card-header>
 
                   <ion-card-content>
-                    Keep close to Nature's heart
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-slide>
-        <ion-slide>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-card>
-                  <ion-card-header>
-                    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-                    <ion-card-title>Card Title</ion-card-title>
-                  </ion-card-header>
-
-                  <ion-card-content>
-                    Keep close to Nature's heart
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-              <ion-col>
-                <ion-card>
-                  <ion-card-header>
-                    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-                    <ion-card-title>Card Title</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    Keep close to Nature's heart
+                    {{event.deskripsi}}
                   </ion-card-content>
                 </ion-card>
               </ion-col>
@@ -84,29 +45,41 @@
       <ion-list>
         <ion-item href="/tabs/tab3">
           <ion-thumbnail item-start>
-            <img src="https://vuejs.org/images/logo.svg">
-          </ion-thumbnail>      
+            <img src="https://vuejs.org/images/logo.svg" />
+          </ion-thumbnail>
           <ion-label>
             <h2>Blogs Title</h2>
-            <p>Ionic Framework is an open source UI toolkit for building performant, high-quality mobile and desktop apps using web technologies</p>
+            <p>
+              Ionic Framework is an open source UI toolkit for building
+              performant, high-quality mobile and desktop apps using web
+              technologies
+            </p>
           </ion-label>
         </ion-item>
         <ion-item href="/tabs/tab3">
           <ion-thumbnail item-start>
-            <img src="https://vuejs.org/images/logo.svg">
+            <img src="https://vuejs.org/images/logo.svg" />
           </ion-thumbnail>
           <ion-label>
             <h3>Blogs Title</h3>
-            <p>Ionic Framework is an open source UI toolkit for building performant, high-quality mobile and desktop apps using web technologies</p>
+            <p>
+              Ionic Framework is an open source UI toolkit for building
+              performant, high-quality mobile and desktop apps using web
+              technologies
+            </p>
           </ion-label>
         </ion-item>
         <ion-item href="/tabs/tab3">
           <ion-thumbnail item-start>
-            <img src="https://vuejs.org/images/logo.svg">
-          </ion-thumbnail>      
+            <img src="https://vuejs.org/images/logo.svg" />
+          </ion-thumbnail>
           <ion-label>
             <h2>Blogs Title</h2>
-            <p>Ionic Framework is an open source UI toolkit for building performant, high-quality mobile and desktop apps using web technologies</p>
+            <p>
+              Ionic Framework is an open source UI toolkit for building
+              performant, high-quality mobile and desktop apps using web
+              technologies
+            </p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -150,6 +123,8 @@ import {
   IonText,
   IonList,
   IonItem,
+  IonLabel,
+  IonThumbnail,
 } from "@ionic/vue";
 
 export default {
@@ -173,24 +148,46 @@ export default {
     IonText,
     IonList,
     IonItem,
+    IonLabel,
+    IonThumbnail,
   },
   data() {
     return {
       bloodData: [],
+      eventsData: [],
     };
   },
   created() {
-    const API = process.env.VUE_APP_API;
-    fetch(`${API}/v1/bloods`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.bloodData = data.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.getBloodData();
+    this.getEventsData();
+  },
+  methods: {
+    getBloodData() {
+      const API = process.env.VUE_APP_API;
+      fetch(`${API}/v1/bloods`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          this.bloodData = data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getEventsData() {
+      const API = process.env.VUE_APP_API;
+      fetch(`${API}/v1/events`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          this.eventsData = data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
