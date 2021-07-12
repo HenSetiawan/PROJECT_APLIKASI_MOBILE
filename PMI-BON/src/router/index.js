@@ -20,11 +20,20 @@ const routes = [
       },
       {
         path: 'tab2',
-        component: () => import('@/views/Tab2.vue')
+        component: () => import('@/views/Volunteer.vue')
       },
       {
+<<<<<<< HEAD
         path: 'login',
         component: () => import('@/views/LoginPage.vue')
+=======
+        path: 'tab3',
+        component: () => import('@/views/Blogs.vue')
+      },
+      {
+        path: 'tab4',
+        component: () => import('@/views/Events.vue')
+>>>>>>> b9b22c82086e5c7183b5d3e0ac272e429ac83235
       }
     ]
   }

@@ -80,14 +80,14 @@
       </ion-list>
       <ion-grid class="container">
         <ion-row class="thead">
-          <ion-col>Kategori</ion-col>
+          <ion-col size="4">Kategori</ion-col>
           <ion-col>A</ion-col>
           <ion-col>B</ion-col>
           <ion-col>AB</ion-col>
           <ion-col>O</ion-col>
         </ion-row>
         <ion-row v-for="blood in bloodData" :key="blood.id">
-          <ion-col>{{ blood.kategori }}</ion-col>
+          <ion-col size="4">{{ blood.kategori }}</ion-col>
           <ion-col>{{ blood.jumlah_gol_A }}</ion-col>
           <ion-col>{{ blood.jumlah_gol_B }}</ion-col>
           <ion-col>{{ blood.jumlah_gol_AB }}</ion-col>

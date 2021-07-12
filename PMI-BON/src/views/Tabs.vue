@@ -15,8 +15,19 @@
 
         <ion-tab-button tab="tab3" href="/tabs/login">
           <ion-icon v-if="isUserLogin" :icon="person" />
-           <ion-icon v-else :icon="logIn" />
+          <ion-icon v-else :icon="logIn" />
           <ion-label>Akun</ion-label>
+          <ion-label>Relawan</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="tab3" href="/tabs/tab3">
+          <ion-icon :icon="newspaper" />
+          <ion-label>Artikel</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="tab4" href="/tabs/tab4">
+          <ion-icon :icon="calendar" />
+          <ion-label>Agenda</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -40,8 +51,9 @@ import {
   home,
   person,
   people,
-  logIn
+  logIn,
 } from "ionicons/icons";
+import { home, people, newspaper, calendar } from "ionicons/icons";
 
 export default {
   name: "Tabs",
@@ -63,7 +75,7 @@ export default {
       person,
       people,
       logIn,
-      isUserLogin:false
+      isUserLogin: false,
     };
   },
 };
