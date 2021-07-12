@@ -6,6 +6,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
+      <img src="../image/blood.jpg" alt="" />
       <ion-grid>
         <ion-row>
           <p>Username</p>
@@ -23,6 +24,11 @@
         </ion-row>
         <ion-row>
           <ion-button color="danger" class="btn-login">Login</ion-button>
+        </ion-row>
+        <ion-row>
+          <ion-button color="primary" class="btn-login" href="/tabs/register"
+            >Register</ion-button
+          >
         </ion-row>
       </ion-grid>
     </ion-content>
@@ -77,9 +83,13 @@ p {
   margin: auto !important;
   width: 90% !important;
 }
-.btn-login{
-    width: 90% !important;
-    margin:8px auto;
-
+.btn-login {
+  width: 90% !important;
+  margin: 8px auto;
+}
+img {
+  height: 40%;
+  margin: auto;
+  display: block;
 }
 </style>
