@@ -23,8 +23,8 @@ const routes = [
         component: () => import('@/views/Tab2.vue')
       },
       {
-        path: 'tab3',
-        component: () => import('@/views/Tab3.vue')
+        path: 'login',
+        component: () => import('@/views/LoginPage.vue')
       }
     ]
   }
