@@ -3,31 +3,31 @@
     <ion-router-outlet> </ion-router-outlet>
     <ion-tabs>
       <ion-tab-bar>
-        <ion-tab-button tab="tab1" href="/tabs/tab1">
+        <ion-tab-button tab="tab1" href="/tabs/home">
           <ion-icon :icon="home" />
           <ion-label>Beranda</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab2" href="/tabs/tab2">
+        <ion-tab-button tab="tab2" href="/tabs/voluntter">
           <ion-icon :icon="people" />
           <ion-label>Voluntter</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab3" href="/tabs/login">
-          <ion-icon v-if="isUserLogin" :icon="person" />
-          <ion-icon v-else :icon="logIn" />
-          <ion-label>Akun</ion-label>
-          <ion-label>Relawan</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="tab3" href="/tabs/tab3">
+        <ion-tab-button tab="tab3" href="/tabs/blogs">
           <ion-icon :icon="newspaper" />
           <ion-label>Artikel</ion-label>
         </ion-tab-button>
+ 
 
-        <ion-tab-button tab="tab4" href="/tabs/tab4">
+        <ion-tab-button tab="tab4" href="/tabs/events">
           <ion-icon :icon="calendar" />
           <ion-label>Agenda</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="tab5" href="/tabs/login">
+          <ion-icon v-if="isUserLogin" :icon="person" />
+          <ion-icon v-else :icon="logIn" />
+          <ion-label>Akun</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -45,15 +45,13 @@ import {
   IonRouterOutlet,
 } from "@ionic/vue";
 import {
-  ellipse,
-  square,
-  triangle,
   home,
   person,
   people,
   logIn,
+  newspaper,
+  calendar,
 } from "ionicons/icons";
-import { home, people, newspaper, calendar } from "ionicons/icons";
 
 export default {
   name: "Tabs",
@@ -68,13 +66,13 @@ export default {
   },
   data() {
     return {
-      ellipse,
-      square,
-      triangle,
       home,
       person,
       people,
       logIn,
+      newspaper,
+      calendar,
+
       isUserLogin: false,
     };
   },
