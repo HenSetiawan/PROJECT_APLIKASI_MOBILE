@@ -9,13 +9,18 @@
         </ion-tab-button>
 
         <ion-tab-button tab="tab2" href="/tabs/tab2">
-          <ion-icon :icon="ellipse" />
-          <ion-label>Tab 2</ion-label>
+          <ion-icon :icon="people" />
+          <ion-label>Relawan</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="tab3" href="/tabs/tab3">
-          <ion-icon :icon="square" />
-          <ion-label>Tab 3</ion-label>
+          <ion-icon :icon="newspaper" />
+          <ion-label>Artikel</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="tab4" href="/tabs/tab4">
+          <ion-icon :icon="calendar" />
+          <ion-label>Agenda</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -32,7 +37,7 @@ import {
   IonPage,
   IonRouterOutlet,
 } from "@ionic/vue";
-import { ellipse, square, triangle, home } from "ionicons/icons";
+import { home, people, newspaper, calendar } from "ionicons/icons";
 
 export default {
   name: "Tabs",
@@ -47,10 +52,10 @@ export default {
   },
   data() {
     return {
-      ellipse,
-      square,
-      triangle,
-      home
+      home,
+      people,
+      newspaper,
+      calendar
     };
   },
 };

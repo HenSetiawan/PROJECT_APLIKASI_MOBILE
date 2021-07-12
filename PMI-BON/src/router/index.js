@@ -20,11 +20,15 @@ const routes = [
       },
       {
         path: 'tab2',
-        component: () => import('@/views/Tab2.vue')
+        component: () => import('@/views/Volunteer.vue')
       },
       {
         path: 'tab3',
-        component: () => import('@/views/Tab3.vue')
+        component: () => import('@/views/Blogs.vue')
+      },
+      {
+        path: 'tab4',
+        component: () => import('@/views/Events.vue')
       }
     ]
   }
