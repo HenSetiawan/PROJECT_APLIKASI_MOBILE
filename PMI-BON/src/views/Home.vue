@@ -66,7 +66,7 @@
         </ion-item>
         <ion-item href="/tabs/tab3">
           <ion-thumbnail item-start>
-            <img src="https://vuejs.org/images/logo.svg" />
+            <img src="https://vuejs.org/images/logo.svg"/>
           </ion-thumbnail>
           <ion-label>
             <h2>Blogs Title</h2>
