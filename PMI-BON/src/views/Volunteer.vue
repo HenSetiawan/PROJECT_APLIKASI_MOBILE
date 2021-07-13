@@ -12,64 +12,19 @@
         </ion-toolbar>
       </ion-header>
       <ion-list>
-        <ion-item href="/tabs/tab3">
+        <ion-item href="/tabs/tab3" v-for="volunteer in volunteersData" :key="volunteer.id">
           <ion-avatar>
-            <img src="../../public/assets/icon/user.svg"/>
+            <img src="../image/user.svg"/>
           </ion-avatar>
           <ion-label>
             <ion-grid>
               <ion-row>
-                <ion-col><h2>Nama Relawan</h2></ion-col>
-                <ion-col><h2 class="gol">A</h2></ion-col>
+                <ion-col><h2>{{ volunteer.username }}</h2></ion-col>
+                <ion-col><h2 class="gol">{{ volunteer.gol_darah }}</h2></ion-col>
               </ion-row>
             </ion-grid>
-            <p>relawan001@gmail.com</p>
-            <p>Jl.Malioboro no 23 Bondowoso</p>
-          </ion-label>
-        </ion-item>
-        <ion-item href="/tabs/tab3">
-          <ion-avatar>
-            <img src="../../public/assets/icon/user.svg"/>
-          </ion-avatar>
-          <ion-label>
-            <ion-grid>
-              <ion-row>
-                <ion-col><h2>Nama Relawan</h2></ion-col>
-                <ion-col><h2 class="gol">A</h2></ion-col>
-              </ion-row>
-            </ion-grid>
-            <p>relawan001@gmail.com</p>
-            <p>Jl.Malioboro no 23 Bondowoso</p>
-          </ion-label>
-        </ion-item>
-        <ion-item href="/tabs/tab3">
-          <ion-avatar>
-            <img src="../../public/assets/icon/user.svg"/>
-          </ion-avatar>
-          <ion-label>
-            <ion-grid>
-              <ion-row>
-                <ion-col><h2>Nama Relawan</h2></ion-col>
-                <ion-col><h2 class="gol">A</h2></ion-col>
-              </ion-row>
-            </ion-grid>
-            <p>relawan001@gmail.com</p>
-            <p>Jl.Malioboro no 23 Bondowoso</p>
-          </ion-label>
-        </ion-item>
-        <ion-item href="/tabs/tab3">
-          <ion-avatar>
-            <img src="../../public/assets/icon/user.svg"/>
-          </ion-avatar>
-          <ion-label>
-            <ion-grid>
-              <ion-row>
-                <ion-col><h2>Nama Relawan</h2></ion-col>
-                <ion-col><h2 class="gol">A</h2></ion-col>
-              </ion-row>
-            </ion-grid>
-            <p>relawan001@gmail.com</p>
-            <p>Jl.Malioboro no 23 Bondowoso</p>
+            <p>{{ volunteer.email }}</p>
+            <p>{{ volunteer.alamat }}</p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -83,8 +38,38 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue
 
 export default  {
   name: 'Tab2',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
-}
+  components: { 
+    IonHeader, 
+    IonToolbar, 
+    IonTitle, 
+    IonContent, 
+    IonPage 
+  },
+  data() {
+    return {
+      volunteersData: [],
+    };
+  },
+  created() {
+    this.getVolunteersData();
+  },
+  methods: {
+    getVolunteersData() {
+      const API = process.env.VUE_APP_API;
+      fetch(`${API}/v1/volunteers`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          this.volunteersData = data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+};
+
 </script>
 <style scoped>
 ion-list {
