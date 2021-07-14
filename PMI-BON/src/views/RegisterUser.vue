@@ -60,7 +60,7 @@
             <ion-icon :icon="phonePortraitOutline" />
           </ion-row>
           <ion-row class="error-message">
-            <error-message name="phone"></error-message>
+            <error-message name="no_hp"></error-message>
           </ion-row>
           <ion-row>
             <p>Password</p>
