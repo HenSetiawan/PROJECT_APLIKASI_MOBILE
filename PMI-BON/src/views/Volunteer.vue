@@ -10,23 +10,21 @@
         <ion-item
           href="/tabs/tab3"
           v-for="volunteer in volunteersData"
-          :key="volunteer.id"
-        >
+          :key="volunteer.id">
           <ion-avatar>
             <img src="../image/user.svg" />
           </ion-avatar>
           <ion-label>
             <ion-grid>
               <ion-row>
-                <ion-col
-                  ><h2>{{ volunteer.username }}</h2></ion-col
-                >
-                <ion-col
-                  ><h2 class="gol">{{ volunteer.gol_darah }}</h2></ion-col
-                >
+                <ion-col>
+                  <h2>{{ volunteer.username }}</h2>
+                </ion-col>
+                <ion-col>
+                  <h2 class="gol">{{ volunteer.gol_darah }}</h2>
+                </ion-col>
               </ion-row>
             </ion-grid>
-            <p>{{ volunteer.email }}</p>
             <p>{{ volunteer.alamat }}</p>
           </ion-label>
         </ion-item>
