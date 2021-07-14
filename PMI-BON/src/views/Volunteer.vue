@@ -12,15 +12,23 @@
         </ion-toolbar>
       </ion-header>
       <ion-list>
-        <ion-item href="/tabs/tab3" v-for="volunteer in volunteersData" :key="volunteer.id">
+        <ion-item
+          href="/tabs/tab3"
+          v-for="volunteer in volunteersData"
+          :key="volunteer.id"
+        >
           <ion-avatar>
-            <img src="../image/user.svg"/>
+            <img src="../image/user.svg" />
           </ion-avatar>
           <ion-label>
             <ion-grid>
               <ion-row>
-                <ion-col><h2>{{ volunteer.username }}</h2></ion-col>
-                <ion-col><h2 class="gol">{{ volunteer.gol_darah }}</h2></ion-col>
+                <ion-col
+                  ><h2>{{ volunteer.username }}</h2></ion-col
+                >
+                <ion-col
+                  ><h2 class="gol">{{ volunteer.gol_darah }}</h2></ion-col
+                >
               </ion-row>
             </ion-grid>
             <p>{{ volunteer.email }}</p>
@@ -33,17 +41,36 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonLabel,
+  IonRow,
+  IonGrid,
+  IonCol,
+  IonAvatar,
+  IonList,
+  IonItem,
+} from "@ionic/vue";
 
-
-export default  {
-  name: 'Tab2',
-  components: { 
-    IonHeader, 
-    IonToolbar, 
-    IonTitle, 
-    IonContent, 
-    IonPage 
+export default {
+  name: "Tab2",
+  components: {
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonPage,
+    IonLabel,
+    IonRow,
+    IonGrid,
+    IonCol,
+    IonAvatar,
+    IonList,
+    IonItem,
   },
   data() {
     return {
@@ -69,7 +96,6 @@ export default  {
     },
   },
 };
-
 </script>
 <style scoped>
 ion-list {

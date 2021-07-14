@@ -7,71 +7,102 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <img src="../image/blood.jpg" alt="" />
-      <form action="">
+      <Form @submit="onSubmit">
         <ion-grid>
           <ion-row>
             <p>Username</p>
           </ion-row>
           <ion-row class="input-login">
-            <ion-input
-              placeholder="Username"
-              type="text"
-              min="5"
-              v-model="form.username"
-            ></ion-input>
+            <Field
+              name="username"
+              as="input"
+              placeholder="username"
+              :rules="isRequired"
+              autocomplete="off"
+            >
+            </Field>
             <ion-icon :icon="person" />
           </ion-row>
+          <ion-row class="error-message">
+            <error-message name="username"></error-message>
+          </ion-row>
+          <!-- username end -->
           <ion-row>
             <p>Email</p>
           </ion-row>
           <ion-row class="input-login">
-            <ion-input
-              placeholder="Email"
-              type="email"
-              v-model="form.email"
-            ></ion-input>
+            <Field
+              name="email"
+              as="input"
+              placeholder="email"
+              :rules="isRequired"
+              autocomplete="off"
+            >
+            </Field>
             <ion-icon :icon="mail" />
           </ion-row>
+          <ion-row class="error-message">
+            <error-message name="email"></error-message>
+          </ion-row>
+          <!-- email end -->
           <ion-row>
-            <p>No Telephone</p>
+            <p>Phone</p>
           </ion-row>
           <ion-row class="input-login">
-            <ion-input
+            <Field
+              name="no_hp"
+              as="input"
               placeholder="+62"
-              type="text"
-              v-model="form.no_hp"
-            ></ion-input>
+              :rules="isRequired"
+              autocomplete="off"
+            >
+            </Field>
             <ion-icon :icon="phonePortraitOutline" />
+          </ion-row>
+          <ion-row class="error-message">
+            <error-message name="phone"></error-message>
           </ion-row>
           <ion-row>
             <p>Password</p>
           </ion-row>
           <ion-row class="input-login">
-            <ion-input
-              placeholder="Password"
+            <Field
+              name="password"
+              as="input"
+              placeholder="password"
+              :rules="isRequired"
               type="password"
-              v-model="form.password"
-            ></ion-input>
+            >
+            </Field>
             <ion-icon :icon="key" />
           </ion-row>
+          <ion-row class="error-message">
+            <error-message name="password"></error-message>
+          </ion-row>
           <ion-row>
-            <p>Konfirmasi Password</p>
+            <p>Konfirmasi password</p>
           </ion-row>
           <ion-row class="input-login">
-            <ion-input
-              placeholder="Password"
+            <Field
+              name="confirm_password"
+              as="input"
+              placeholder="password"
+              :rules="isRequired"
               type="password"
-              v-model="form.confirm_password"
-            ></ion-input>
+            >
+            </Field>
             <ion-icon :icon="key" />
           </ion-row>
+          <ion-row class="error-message">
+            <error-message name="confirm_password"></error-message>
+          </ion-row>
           <ion-row>
-            <ion-button color="danger" class="btn-login" @click="registerUser"
-              >Register</ion-button
+            <ion-button color="danger" class="btn-login" type="submit"
+              >Registrasi</ion-button
             >
           </ion-row>
         </ion-grid>
-      </form>
+      </Form>
     </ion-content>
   </ion-page>
 </template>
@@ -87,9 +118,9 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonInput,
 } from "@ionic/vue";
-import { person, key,mail,phonePortraitOutline } from "ionicons/icons";
+import { person, key, mail, phonePortraitOutline } from "ionicons/icons";
+import { Field, ErrorMessage, Form } from "vee-validate";
 
 export default {
   name: "Tab3",
@@ -103,27 +134,25 @@ export default {
     IonRow,
     IonIcon,
     IonButton,
-    IonInput,
+    Field,
+    ErrorMessage,
+    Form,
   },
+
   data() {
     return {
       person,
       key,
       mail,
       phonePortraitOutline,
-      form: {
-        username: "",
-        email: "",
-        no_hp: "",
-        password: "",
-        confirm_password: "",
-      },
       API: process.env.VUE_APP_API,
     };
   },
+
   methods: {
-    registerUser() {
-      const data = this.form;
+    onSubmit(values) {
+      console.log(values);
+      const data = values;
       console.log(data);
       fetch(`${this.API}/v1/auth/user/register`, {
         method: "POST",
@@ -144,13 +173,22 @@ export default {
           console.log(err);
         });
     },
+    isRequired(value) {
+      // if the field is empty
+      if (!value) {
+        return "This field is required";
+      }
+
+      // All is good
+      return true;
+    },
   },
 };
 </script>
 <style scoped>
 p {
   font-size: 12px !important;
-  margin-left: 21px;
+  margin-left: 26px;
 }
 .input-login {
   border-bottom: 1px solid rgb(109, 106, 106);
@@ -165,5 +203,25 @@ img {
   height: 30%;
   margin: auto;
   display: block;
+}
+
+input {
+  border: none;
+  outline: none;
+  width: 90%;
+  padding: 8px !important;
+}
+
+input:focus {
+  border: none;
+  outline: none;
+}
+
+.error-message {
+  font-size: 12px !important;
+  margin-left: 21px;
+  color: red !important;
+  font-style: italic;
+  margin-top: 2px !important;
 }
 </style>
