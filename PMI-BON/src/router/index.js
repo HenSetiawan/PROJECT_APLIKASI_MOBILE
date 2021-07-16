@@ -47,6 +47,10 @@ const routes = [
         path: "login-volunteer",
         component: () => import("@/views/LoginVolunteer.vue"),
       },
+      {
+        path: "profile",
+        component: () => import("@/views/UserProfile.vue"),
+      },
     ],
   },
 ];
