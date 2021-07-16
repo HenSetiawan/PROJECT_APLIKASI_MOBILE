@@ -7,10 +7,7 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-list>
-        <ion-item
-          href="/tabs/tab3"
-          v-for="event in eventsData"
-          :key="event.id">
+        <ion-item href="/tabs/tab3" v-for="event in eventsData" :key="event.id">
           <ion-label>
             <ion-grid>
               <ion-row>
@@ -57,11 +54,9 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonIcon
+  IonIcon,
 } from "@ionic/vue";
-import {
-  navigateCircle,
-} from "ionicons/icons";
+import { navigateCircle } from "ionicons/icons";
 
 export default {
   components: {
@@ -78,7 +73,7 @@ export default {
     IonCol,
     IonIcon,
   },
-  
+
   data() {
     return {
       eventsData: [],
@@ -107,7 +102,6 @@ export default {
 </script>
 <style scoped>
 ion-list {
-  margin: 20px;
   border-radius: 5px;
 }
 .waktu {

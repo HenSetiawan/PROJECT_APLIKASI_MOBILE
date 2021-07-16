@@ -58,7 +58,9 @@
             >
           </ion-row>
           <ion-row>
-            <ion-item>Login sebagai voluntter?</ion-item>
+            <ion-item href="/tabs/register-voluntter"
+              >Login sebagai voluntter?</ion-item
+            >
           </ion-row>
         </ion-grid>
       </Form>
@@ -134,20 +136,20 @@ export default {
     },
     isRequired(value) {
       if (!value) {
-        return "This field is required";
+        return "Input Tidak Boleh Kosong";
       }
       return true;
     },
     isEmail(value) {
       if (!value) {
-        return "This field is required";
+        return "Email Tidak Boleh Kosong";
       }
       if (
         !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
           value
         )
       ) {
-        return "This field must be a valid email";
+        return "Email Tidak Valid";
       }
 
       return true;

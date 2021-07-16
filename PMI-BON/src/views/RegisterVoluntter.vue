@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Register</ion-title>
+        <ion-title>Register Relawan</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -10,13 +10,13 @@
       <Form @submit="onSubmit">
         <ion-grid>
           <ion-row>
-            <p>Username</p>
+            <p>Nama</p>
           </ion-row>
           <ion-row class="input-login">
             <Field
               name="username"
               as="input"
-              placeholder="username"
+              placeholder="nama"
               :rules="isRequired"
               autocomplete="off"
             >
@@ -62,6 +62,61 @@
           <ion-row class="error-message">
             <error-message name="no_hp"></error-message>
           </ion-row>
+
+          <ion-row>
+            <p>Alamat</p>
+          </ion-row>
+          <ion-row class="input-login">
+            <Field
+              name="alamat"
+              as="input"
+              placeholder="alamat"
+              :rules="isRequired"
+              autocomplete="off"
+            >
+            </Field>
+            <ion-icon :icon="phonePortraitOutline" />
+          </ion-row>
+          <ion-row class="error-message">
+            <error-message name="alamat"></error-message>
+          </ion-row>
+
+          <ion-row>
+            <p>Gol Darah</p>
+          </ion-row>
+          <ion-row class="input-login">
+            <Field
+              name="gol_darah"
+              as="input"
+              placeholder="Golongan Darah"
+              :rules="isValidBlood"
+              autocomplete="off"
+            >
+            </Field>
+            <ion-icon :icon="phonePortraitOutline" />
+          </ion-row>
+          <ion-row class="error-message">
+            <error-message name="gol_darah"></error-message>
+          </ion-row>
+
+          <ion-row>
+            <p>Tanggal Lahir</p>
+          </ion-row>
+          <ion-row class="input-login date">
+            <Field
+              name="tanggal_lahir"
+              as="input"
+              :rules="isRequired"
+              autocomplete="off"
+              type="date"
+            >
+            </Field>
+            <ion-icon :icon="phonePortraitOutline" />
+          </ion-row>
+          <ion-row class="error-message">
+            <error-message name="tanggal_lahir"></error-message>
+          </ion-row>
+
           <ion-row>
             <p>Password</p>
           </ion-row>
@@ -154,7 +209,7 @@ export default {
       console.log(values);
       const data = values;
       console.log(data);
-      fetch(`${this.API}/v1/auth/user/register`, {
+      fetch(`${this.API}/v1/auth/volunteer/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -176,7 +231,7 @@ export default {
     isRequired(value) {
       // if the field is empty
       if (!value) {
-        return "This field is required";
+        return "Input Tidak Boleh Kosong";
       }
 
       // All is good
@@ -184,14 +239,22 @@ export default {
     },
     isEmail(value) {
       if (!value) {
-        return "This field is required";
+        return "Email Tidak Boleh Kosong";
       }
       if (
         !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
           value
         )
       ) {
-        return "This field must be a valid email";
+        return "Email Tidak Valid";
+      }
+
+      return true;
+    },
+    isValidBlood(value) {
+      const bloodType = ["A", "B", "AB", "O"];
+      if (!bloodType.includes(value)) {
+        return "Golongan Darah Tidak Valid";
       }
 
       return true;
@@ -237,5 +300,8 @@ input:focus {
   color: red !important;
   font-style: italic;
   margin-top: 2px !important;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: none;
 }
 </style>
