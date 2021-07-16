@@ -39,8 +39,12 @@ const routes = [
         component: () => import("@/views/RegisterUser.vue"),
       },
       {
-        path: "register-voluntter",
-        component: () => import("@/views/RegisterVoluntter.vue"),
+        path: "register-volunteer",
+        component: () => import("@/views/RegisterVolunteer.vue"),
+      },
+      {
+        path: "login-volunteer",
+        component: () => import("@/views/LoginVolunteer.vue"),
       },
     ],
   },

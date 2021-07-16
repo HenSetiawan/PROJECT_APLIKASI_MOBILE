@@ -10,7 +10,7 @@
 
         <ion-tab-button tab="tab2" href="/tabs/voluntter">
           <ion-icon :icon="people" />
-          <ion-label>Voluntter</ion-label>
+          <ion-label>Relawan</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="tab3" href="/tabs/blogs">

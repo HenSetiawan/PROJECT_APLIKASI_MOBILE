@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Login Pengguna</ion-title>
+        <ion-title>Login Relawan</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -53,13 +53,8 @@
             >
           </ion-row>
           <ion-row>
-            <ion-button color="primary" class="btn-login" href="/tabs/register"
+            <ion-button color="primary" class="btn-login" href="/tabs/register-volunteer"
               >Registrasi</ion-button
-            >
-          </ion-row>
-          <ion-row>
-            <ion-item href="/tabs/login-volunteer"
-              >Login sebagai relawan?</ion-item
             >
           </ion-row>
         </ion-grid>
@@ -79,7 +74,6 @@ import {
   IonRow,
   IonIcon,
   IonButton,
-  IonItem,
 } from "@ionic/vue";
 import { Field, ErrorMessage, Form } from "vee-validate";
 import { person, key } from "ionicons/icons";
@@ -87,7 +81,6 @@ import { Storage } from "@ionic/storage";
 export default {
   name: "loginPage",
   components: {
-    IonItem,
     IonPage,
     IonHeader,
     IonTitle,
@@ -112,7 +105,7 @@ export default {
     async onSubmit(values) {
       const API = process.env.VUE_APP_API;
       try {
-        const response = await fetch(`${API}/v1/auth/user/login`, {
+        const response = await fetch(`${API}/v1/auth/volunteer/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -123,9 +116,9 @@ export default {
 
         if (response.status == 401) {
           this.loginMessage = "Password atau Email anda salah";
-          setTimeout(() => {
-            this.loginMessage = "";
-          }, 3000);
+          setTimeout(()=>{
+            this.loginMessage=""
+          },3000)
         } else {
           const result = await response.json();
           console.log(result);
