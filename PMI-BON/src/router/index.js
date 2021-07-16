@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import Tabs from "../views/Tabs.vue";
+import { Storage } from "@ionic/storage";
 
 const routes = [
   {
@@ -53,6 +54,25 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  const store = new Storage();
+  await store.create();
+  const token = await store.get("accessToken");
+
+  if (to.matched.some((record) => record.meta.auth) && !token) {
+    next({ path: "/tabs/login" });
+    return;
+  }
+  if (to.path == "/tabs/login" && token) {
+    next({ path: "/" });
+  }
+
+  if (to.path == "/tabs/login-volunteer" && token) {
+    next({ path: "/" });
+  }
+  next();
 });
 
 export default router;
