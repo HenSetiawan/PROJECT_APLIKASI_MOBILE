@@ -17,7 +17,6 @@
           <ion-icon :icon="newspaper" />
           <ion-label>Artikel</ion-label>
         </ion-tab-button>
- 
 
         <ion-tab-button tab="tab4" href="/tabs/events">
           <ion-icon :icon="calendar" />
@@ -52,6 +51,7 @@ import {
   newspaper,
   calendar,
 } from "ionicons/icons";
+import { Storage } from "@ionic/storage";
 
 export default {
   name: "Tabs",
@@ -75,6 +75,21 @@ export default {
 
       isUserLogin: false,
     };
+  },
+  methods: {
+    async isLogin() {
+      const store = new Storage();
+      await store.create();
+      const token = await store.get("accessToken");
+      return token;
+    },
+  },
+  created() {
+    this.isLogin().then((token) => {
+      if (token) {
+        this.isUserLogin = true;
+      }
+    });
   },
 };
 </script>

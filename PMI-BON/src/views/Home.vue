@@ -11,7 +11,7 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-card>
+                <ion-card :key="event.id">
                   <ion-card-header>
                     <ion-card-title>{{ event.judul_agenda }}</ion-card-title>
                     <ion-card-subtitle>{{ event.waktu }}</ion-card-subtitle>

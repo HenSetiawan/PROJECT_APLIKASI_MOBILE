@@ -50,6 +50,9 @@ const routes = [
       {
         path: "profile",
         component: () => import("@/views/UserProfile.vue"),
+        meta: {
+          auth: true,
+        },
       },
     ],
   },
@@ -70,11 +73,13 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
   if (to.path == "/tabs/login" && token) {
-    next({ path: "/" });
+    next({ path: "/tabs/profile" });
+    return;
   }
 
   if (to.path == "/tabs/login-volunteer" && token) {
-    next({ path: "/" });
+    next({ path: "/tabs/profile" });
+    return;
   }
   next();
 });
