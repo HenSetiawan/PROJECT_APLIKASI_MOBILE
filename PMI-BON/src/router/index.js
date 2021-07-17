@@ -54,6 +54,10 @@ const routes = [
           auth: true,
         },
       },
+      {
+        path: "detail-volunteer",
+        component: () => import("@/views/DetailVolunteer.vue"),
+      },
     ],
   },
 ];
