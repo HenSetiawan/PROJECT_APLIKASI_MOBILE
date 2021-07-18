@@ -110,34 +110,61 @@ export default {
   },
   methods: {
     async getUserData() {
+      try {
+        const store = new Storage();
+        await store.create();
+        const token = await store.get("accessUser");
+
+        const API = process.env.VUE_APP_API;
+        console.log(token);
+        const response = await fetch(`${API}/v1/user/`, {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer  ${token}`,
+          },
+        });
+
+        if (response.status == 401) {
+          this.$router.push("/tabs/login/");
+          return;
+        }
+
+        const result = await response.json();
+        return result;
+      } catch (error) {
+        console.log(error);
+        this.$router.push("/tabs/login/");
+        return;
+      }
+    },
+    async logOutUser() {
+      const API = process.env.VUE_APP_API;
       const store = new Storage();
       await store.create();
-      const token = await store.get("accessToken");
-
-      const API = process.env.VUE_APP_API;
-      const response = await fetch(`${API}/v1/user/`, {
+      const token = await store.get("accessUser");
+      const response = await fetch(`${API}/v1/auth/user/logout`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer  ${token}`,
         },
       });
 
-      const result = await response.json();
-      return result;
-    },
-    async logOutUser() {
-      const store = new Storage();
-      await store.create();
-      await store.remove("accessToken");
-      this.$router.push("/tabs/home");
+      if (response.status == 200) {
+        await store.remove("accessUser");
+        this.$router.push("/tabs/home");
+      }
     },
   },
   created() {
-    this.getUserData().then((response) => {
-      this.name = response.data.username;
-      this.email = response.data.email;
-      this.phone = response.data.no_hp;
-    });
+    this.getUserData()
+      .then((response) => {
+        this.name = response.data.username;
+        this.email = response.data.email;
+        this.phone = response.data.no_hp;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 </script>

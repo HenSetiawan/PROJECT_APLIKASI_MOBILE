@@ -86,7 +86,7 @@ export default {
           data.data.forEach((element) => {
             const tempData = {
               volunteer: element,
-              urlProfile: `/tabs/profile-volunteer/${element.id}`,
+              urlProfile: `/tabs/details-volunteer/${element.id}`,
             };
             temp.push(tempData);
           });

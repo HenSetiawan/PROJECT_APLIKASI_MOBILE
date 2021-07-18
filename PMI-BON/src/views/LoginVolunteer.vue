@@ -53,7 +53,10 @@
             >
           </ion-row>
           <ion-row>
-            <ion-button color="primary" class="btn-login" href="/tabs/register-volunteer"
+            <ion-button
+              color="primary"
+              class="btn-login"
+              href="/tabs/register-volunteer"
               >Registrasi</ion-button
             >
           </ion-row>
@@ -116,15 +119,17 @@ export default {
 
         if (response.status == 401) {
           this.loginMessage = "Password atau Email anda salah";
-          setTimeout(()=>{
-            this.loginMessage=""
-          },3000)
+          setTimeout(() => {
+            this.loginMessage = "";
+          }, 3000);
         } else {
           const result = await response.json();
           console.log(result);
           const store = new Storage();
           await store.create();
-          await store.set("accessToken", result.token);
+          await store.set("accessVolunteer", result.token);
+
+          this.$router.push("/tabs/profile-volunteer");
         }
       } catch (error) {
         console.log(error);

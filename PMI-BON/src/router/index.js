@@ -55,9 +55,16 @@ const routes = [
         },
       },
       {
-        path: "profile-volunteer/:id",
-        component: () => import("@/views/ProfileVolunteer.vue"),
+        path: "details-volunteer/:id",
+        component: () => import("@/views/DetailsVolunteer.vue"),
         props: true,
+        meta: {
+          auth: true,
+        },
+      },
+      {
+        path: "profile-volunteer/",
+        component: () => import("@/views/VolunteerProfile.vue"),
         meta: {
           auth: true,
         },
@@ -74,18 +81,57 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const store = new Storage();
   await store.create();
-  const token = await store.get("accessToken");
+  const tokenUser = await store.get("accessUser");
+  const tokenVolunteer = await store.get("accessVolunteer");
+  let token;
+
+  if (tokenUser) {
+    token = tokenUser;
+  } else if (tokenVolunteer) {
+    token = tokenVolunteer;
+  }
 
   if (to.matched.some((record) => record.meta.auth) && !token) {
     next({ path: "/tabs/login" });
     return;
   }
-  if (to.path == "/tabs/login" && token) {
+
+  if (to.path == "/tabs/register" && token) {
+    next({ path: "/tabs/home" });
+    return;
+  }
+
+  if (to.path == "/tabs/register-volunteer" && token) {
+    next({ path: "/tabs/home" });
+    return;
+  }
+
+  if (to.path == "/tabs/login" && tokenUser) {
     next({ path: "/tabs/profile" });
     return;
   }
 
-  if (to.path == "/tabs/login-volunteer" && token) {
+  if (to.path == "/tabs/login-volunteer" && tokenUser) {
+    next({ path: "/tabs/profile" });
+    return;
+  }
+
+  if (to.path == "/tabs/login-volunteer" && tokenVolunteer) {
+    next({ path: "/tabs/profile-volunteer" });
+    return;
+  }
+
+  if (to.path == "/tabs/login" && tokenVolunteer) {
+    next({ path: "/tabs/profile-volunteer" });
+    return;
+  }
+
+  if (to.path == "/tabs/profile" && tokenVolunteer) {
+    next({ path: "/tabs/profile-volunteer" });
+    return;
+  }
+
+  if (to.path == "/tabs/profile-volunteer" && tokenUser) {
     next({ path: "/tabs/profile" });
     return;
   }

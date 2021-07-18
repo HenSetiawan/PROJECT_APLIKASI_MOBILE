@@ -131,7 +131,7 @@ export default {
           console.log(result);
           const store = new Storage();
           await store.create();
-          await store.set("accessToken", result.token);
+          await store.set("accessUser", result.token);
           this.$router.push("/tabs/profile");
         }
       } catch (error) {

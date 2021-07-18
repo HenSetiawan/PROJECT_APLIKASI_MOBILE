@@ -16,7 +16,7 @@
                 </ion-avatar>
               </ion-col>
               <ion-col>
-                <h3 class="name">{{volunteerData.username}}</h3>
+                <h3 class="name">{{ volunteerData.username }}</h3>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -29,7 +29,7 @@
                 <ion-text>Gol. Darah :</ion-text>
               </ion-col>
               <ion-col size="6">
-                <ion-text>{{volunteerData.gol_darah}}</ion-text>
+                <ion-text>{{ volunteerData.gol_darah }}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -42,7 +42,7 @@
                 <ion-text>Tanggal Lahir :</ion-text>
               </ion-col>
               <ion-col size="6">
-                <ion-text>{{volunteerData.tanggal_lahir}}</ion-text>
+                <ion-text>{{ volunteerData.tanggal_lahir }}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -55,7 +55,7 @@
                 <ion-text>Email :</ion-text>
               </ion-col>
               <ion-col size="6">
-                <ion-text>{{volunteerData.email}}</ion-text>
+                <ion-text>{{ volunteerData.email }}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -68,7 +68,7 @@
                 <ion-text>Nomor HP</ion-text>
               </ion-col>
               <ion-col size="6">
-                <ion-text>{{volunteerData.no_hp}}</ion-text>
+                <ion-text>{{ volunteerData.no_hp }}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -81,7 +81,7 @@
                 <ion-text>Alamat</ion-text>
               </ion-col>
               <ion-col size="6">
-                <ion-text>{{volunteerData.alamat}}</ion-text>
+                <ion-text>{{ volunteerData.alamat }}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -141,17 +141,25 @@ export default {
       calendar,
       water,
       map,
-      volunteerData:'',
+      volunteerData: "",
     };
   },
   methods: {
     async getVolunteerData() {
       const store = new Storage();
       await store.create();
-      const token = await store.get("accessToken");
+      const tokenUser = await store.get("accessUser");
+      const tokenVolunteer = await store.get("accessVolunteer");
+      let token;
 
-      if(!token){
-        this.$router.push('/tabs/login/')
+      if (tokenUser) {
+        token = tokenUser;
+      } else if (tokenVolunteer) {
+        token = tokenVolunteer;
+      }
+
+      if (!token) {
+        this.$router.push("/tabs/login/");
       }
 
       const API = process.env.VUE_APP_API;
@@ -162,16 +170,20 @@ export default {
         },
       });
 
+      if (response.status == 401) {
+        this.$router.push("/tabs/login/");
+        return;
+      }
+
       const result = await response.json();
       return result;
     },
   },
-  created(){
-    this.getVolunteerData()
-    .then(response=>{
-      this.volunteerData=response.data
-    })
-  }
+  created() {
+    this.getVolunteerData().then((response) => {
+      this.volunteerData = response.data;
+    });
+  },
 };
 </script>
 
