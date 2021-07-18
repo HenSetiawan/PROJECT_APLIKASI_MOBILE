@@ -55,8 +55,12 @@ const routes = [
         },
       },
       {
-        path: "detail-volunteer",
-        component: () => import("@/views/DetailVolunteer.vue"),
+        path: "profile-volunteer/:id",
+        component: () => import("@/views/ProfileVolunteer.vue"),
+        props: true,
+        meta: {
+          auth: true,
+        },
       },
     ],
   },

@@ -51,7 +51,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-button color="danger" size="small">
+        <ion-button @click="logOutUser" color="danger" size="small">
           <ion-icon :icon="logOut" />
           <p>Keluar</p>
         </ion-button>
@@ -125,6 +125,12 @@ export default {
       const result = await response.json();
       return result;
     },
+    async logOutUser() {
+      const store = new Storage();
+      await store.create();
+      await store.remove("accessToken");
+      this.$router.push("/tabs/home");
+    },
   },
   created() {
     this.getUserData().then((response) => {
@@ -163,7 +169,7 @@ ion-button {
 p {
   margin-left: 10px;
 }
-.name{
+.name {
   text-transform: uppercase;
 }
 </style>

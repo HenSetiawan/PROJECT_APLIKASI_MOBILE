@@ -16,7 +16,7 @@
                 </ion-avatar>
               </ion-col>
               <ion-col>
-                <h3 class="name">Nama Relawan</h3>
+                <h3 class="name">{{volunteerData.username}}</h3>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -24,14 +24,12 @@
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col size="1">
+              <ion-col size="6">
                 <ion-icon :icon="water" />
+                <ion-text>Gol. Darah :</ion-text>
               </ion-col>
-              <ion-col size="4">
-                <ion-text>Gol. Darah</ion-text>
-              </ion-col>
-              <ion-col>
-                <ion-text>A</ion-text>
+              <ion-col size="6">
+                <ion-text>{{volunteerData.gol_darah}}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -39,14 +37,12 @@
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col size="1">
+              <ion-col size="6">
                 <ion-icon :icon="calendar" />
+                <ion-text>Tanggal Lahir :</ion-text>
               </ion-col>
-              <ion-col size="4">
-                <ion-text>Tanggal Lahir</ion-text>
-              </ion-col>
-              <ion-col>
-                <ion-text>23-01-1999</ion-text>
+              <ion-col size="6">
+                <ion-text>{{volunteerData.tanggal_lahir}}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -54,14 +50,12 @@
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col size="1">
+              <ion-col size="6">
                 <ion-icon :icon="mail" />
+                <ion-text>Email :</ion-text>
               </ion-col>
-              <ion-col size="4">
-                <ion-text>Email</ion-text>
-              </ion-col>
-              <ion-col>
-                <ion-text>relawan123@gmail.com</ion-text>
+              <ion-col size="6">
+                <ion-text>{{volunteerData.email}}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -69,14 +63,12 @@
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col size="1">
+              <ion-col size="6">
                 <ion-icon :icon="phonePortraitOutline" />
-              </ion-col>
-              <ion-col size="4">
                 <ion-text>Nomor HP</ion-text>
               </ion-col>
-              <ion-col>
-                <ion-text>083654435555</ion-text>
+              <ion-col size="6">
+                <ion-text>{{volunteerData.no_hp}}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -84,14 +76,12 @@
         <ion-item>
           <ion-grid>
             <ion-row class="alamat">
-              <ion-col size="1">
+              <ion-col size="6">
                 <ion-icon :icon="map" />
-              </ion-col>
-              <ion-col size="4">
                 <ion-text>Alamat</ion-text>
               </ion-col>
-              <ion-col>
-                <ion-text>Jl. Malioboro no 23 Bondowoso</ion-text>
+              <ion-col size="6">
+                <ion-text>{{volunteerData.alamat}}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -117,7 +107,14 @@ import {
   IonAvatar,
   IonText,
 } from "@ionic/vue";
-import { mail, phonePortraitOutline, calendar, water, map } from "ionicons/icons";
+import {
+  mail,
+  phonePortraitOutline,
+  calendar,
+  water,
+  map,
+} from "ionicons/icons";
+import { Storage } from "@ionic/storage";
 
 export default {
   name: "profile",
@@ -136,15 +133,45 @@ export default {
     IonAvatar,
     IonText,
   },
+  props: ["id"],
   data() {
     return {
       mail,
       phonePortraitOutline,
       calendar,
       water,
-      map
+      map,
+      volunteerData:'',
     };
   },
+  methods: {
+    async getVolunteerData() {
+      const store = new Storage();
+      await store.create();
+      const token = await store.get("accessToken");
+
+      if(!token){
+        this.$router.push('/tabs/login/')
+      }
+
+      const API = process.env.VUE_APP_API;
+      const response = await fetch(`${API}/v1/volunteer/${this.id}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer  ${token}`,
+        },
+      });
+
+      const result = await response.json();
+      return result;
+    },
+  },
+  created(){
+    this.getVolunteerData()
+    .then(response=>{
+      this.volunteerData=response.data
+    })
+  }
 };
 </script>
 
@@ -166,19 +193,25 @@ ion-grid {
 
 ion-col {
   margin: auto;
+  display: flex !important;
+  align-items: center !important;
 }
 
 ion-button {
   margin-left: 40px;
 }
 
+ion-text,
+ion-icon {
+  margin: 2px;
+  font-size: 15px;
+}
+
 p {
   margin-left: 10px;
 }
-.name{
+.name {
   text-transform: uppercase;
-}
-.alamat {
-
+  font-size: 18px;
 }
 </style>
