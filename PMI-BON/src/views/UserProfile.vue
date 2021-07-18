@@ -15,11 +15,6 @@
                   <img src="../image/user.svg" />
                 </ion-avatar>
               </ion-col>
-              <!-- <ion-col>
-                <h3 class="name">
-                  {{ name }}
-                </h3>
-              </ion-col> -->
             </ion-row>
           </ion-grid>
         </ion-item>
@@ -76,7 +71,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-button color="danger" size="small" style="margin-top:15px;">
+        <ion-button @click="logOutUser" color="danger" size="small">
           <ion-icon :icon="logOut" />
           <p style="margin-left:5px;">Keluar</p>
         </ion-button>
@@ -136,28 +131,61 @@ export default {
   },
   methods: {
     async getUserData() {
+      try {
+        const store = new Storage();
+        await store.create();
+        const token = await store.get("accessUser");
+
+        const API = process.env.VUE_APP_API;
+        console.log(token);
+        const response = await fetch(`${API}/v1/user/`, {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer  ${token}`,
+          },
+        });
+
+        if (response.status == 401) {
+          this.$router.push("/tabs/login/");
+          return;
+        }
+
+        const result = await response.json();
+        return result;
+      } catch (error) {
+        console.log(error);
+        this.$router.push("/tabs/login/");
+        return;
+      }
+    },
+    async logOutUser() {
+      const API = process.env.VUE_APP_API;
       const store = new Storage();
       await store.create();
-      const token = await store.get("accessToken");
-
-      const API = process.env.VUE_APP_API;
-      const response = await fetch(`${API}/v1/user/`, {
+      const token = await store.get("accessUser");
+      const response = await fetch(`${API}/v1/auth/user/logout`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer  ${token}`,
         },
       });
 
-      const result = await response.json();
-      return result;
+      if (response.status == 200) {
+        await store.remove("accessUser");
+        this.$router.push("/tabs/home");
+      }
     },
   },
   created() {
-    this.getUserData().then((response) => {
-      this.name = response.data.username;
-      this.email = response.data.email;
-      this.phone = response.data.no_hp;
-    });
+    this.getUserData()
+      .then((response) => {
+        this.name = response.data.username;
+        this.email = response.data.email;
+        this.phone = response.data.no_hp;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 </script>
@@ -185,6 +213,7 @@ ion-col {
 ion-button {
   float: right;
   margin-right: 10px;
+  margin-top: 15px;
 }
 
 p {
@@ -194,7 +223,6 @@ p {
 .name {
   text-transform: capitalize;
 }
-
 .ion-label-custom {
   font-family: sans-serif;
   font-size: 13px;

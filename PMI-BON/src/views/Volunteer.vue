@@ -8,9 +8,10 @@
     <ion-content :fullscreen="true">
       <ion-list>
         <ion-item
-          href="/tabs/tab3"
           v-for="volunteer in volunteersData"
-          :key="volunteer.id">
+          :key="volunteer.id"
+          :href="volunteer.urlProfile"
+        >
           <ion-avatar>
             <img src="../image/user.svg" />
           </ion-avatar>
@@ -18,14 +19,14 @@
             <ion-grid>
               <ion-row>
                 <ion-col>
-                  <h2>{{ volunteer.username }}</h2>
+                  <h2>{{ volunteer.volunteer.username }}</h2>
                 </ion-col>
                 <ion-col>
-                  <h2 class="gol">{{ volunteer.gol_darah }}</h2>
+                  <h2 class="gol">{{ volunteer.volunteer.gol_darah }}</h2>
                 </ion-col>
               </ion-row>
             </ion-grid>
-            <p>{{ volunteer.alamat }}</p>
+            <p>{{ volunteer.volunteer.alamat }}</p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -81,7 +82,16 @@ export default {
           return response.json();
         })
         .then((data) => {
-          this.volunteersData = data.data;
+          let temp = [];
+          data.data.forEach((element) => {
+            const tempData = {
+              volunteer: element,
+              urlProfile: `/tabs/details-volunteer/${element.id}`,
+            };
+            temp.push(tempData);
+          });
+
+          this.volunteersData = temp;
         })
         .catch((err) => {
           console.log(err);

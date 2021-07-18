@@ -24,8 +24,7 @@
         </ion-tab-button>
 
         <ion-tab-button tab="tab5" href="/tabs/login">
-          <ion-icon v-if="isUserLogin" :icon="person" />
-          <ion-icon v-else :icon="logIn" />
+          <ion-icon :icon="person" />
           <ion-label>Akun</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
@@ -72,8 +71,6 @@ export default {
       logIn,
       newspaper,
       calendar,
-
-      isUserLogin: false,
     };
   },
   methods: {
@@ -83,13 +80,6 @@ export default {
       const token = await store.get("accessToken");
       return token;
     },
-  },
-  created() {
-    this.isLogin().then((token) => {
-      if (token) {
-        this.isUserLogin = true;
-      }
-    });
   },
 };
 </script>
