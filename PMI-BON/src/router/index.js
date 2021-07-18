@@ -69,6 +69,10 @@ const routes = [
           auth: true,
         },
       },
+      {
+        path: "detail-blog",
+        component: () => import("@/views/DetailBlog.vue"),
+      },
     ],
   },
 ];
