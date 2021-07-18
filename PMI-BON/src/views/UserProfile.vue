@@ -15,8 +15,29 @@
                   <img src="../image/user.svg" />
                 </ion-avatar>
               </ion-col>
+              <!-- <ion-col>
+                <h3 class="name">
+                  {{ name }}
+                </h3>
+              </ion-col> -->
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon :icon="person" />
+              </ion-col>
               <ion-col>
-                <h3 class="name">{{ name }}</h3>
+                <ion-label class="ion-label-custom">Name</ion-label>
+              </ion-col>
+              <ion-col size="10">
+                <ion-label>{{ name }}</ion-label>
+                <p style="font-size:12px; padding-right:10px;">
+                  This is not your username or pin. This name will be visible to
+                  your account
+                </p>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -27,11 +48,15 @@
               <ion-col size="1">
                 <ion-icon :icon="mail" />
               </ion-col>
-              <ion-col size="4">
-                <ion-label>Email</ion-label>
-              </ion-col>
               <ion-col>
+                <ion-label class="ion-label-custom">Email</ion-label>
+              </ion-col>
+              <ion-col size="10">
                 <ion-label>{{ email }}</ion-label>
+                <p style="font-size:12px; padding-right:10px;">
+                  This is your email for login. This email is only visible to
+                  your account
+                </p>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -40,20 +65,20 @@
           <ion-grid>
             <ion-row>
               <ion-col size="1">
-                <ion-icon :icon="phonePortraitOutline" />
-              </ion-col>
-              <ion-col size="4">
-                <ion-label>Nomor HP</ion-label>
+                <ion-icon :icon="call" />
               </ion-col>
               <ion-col>
+                <ion-label class="ion-label-custom">Phone</ion-label>
+              </ion-col>
+              <ion-col size="10">
                 <ion-label>{{ phone }}</ion-label>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-button color="danger" size="small">
+        <ion-button color="danger" size="small" style="margin-top:15px;">
           <ion-icon :icon="logOut" />
-          <p>Keluar</p>
+          <p style="margin-left:5px;">Keluar</p>
         </ion-button>
       </ion-list>
     </ion-content>
@@ -77,7 +102,7 @@ import {
   IonButton,
   IonAvatar,
 } from "@ionic/vue";
-import { mail, phonePortraitOutline, logOut } from "ionicons/icons";
+import { mail, call, person, logOut } from "ionicons/icons";
 import { Storage } from "@ionic/storage";
 
 export default {
@@ -101,7 +126,8 @@ export default {
   data() {
     return {
       mail,
-      phonePortraitOutline,
+      call,
+      person,
       logOut,
       name: "",
       email: "",
@@ -138,18 +164,18 @@ export default {
 
 <style scoped>
 ion-list {
-  padding: 20px 0px 268px 0px;
+  padding: 5px 0px 0px 0px;
 }
 
 ion-avatar {
   height: 72px;
   width: 72px;
   border: 1px solid white;
-  margin: 10px 0px;
+  margin: 5px 15px 5px;
 }
 
 ion-grid {
-  padding: 20px;
+  padding: 5px;
 }
 
 ion-col {
@@ -157,13 +183,21 @@ ion-col {
 }
 
 ion-button {
-  margin-left: 40px;
+  float: right;
+  margin-right: 10px;
 }
 
 p {
-  margin-left: 10px;
+  margin-left: 0px;
 }
-.name{
-  text-transform: uppercase;
+
+.name {
+  text-transform: capitalize;
+}
+
+.ion-label-custom {
+  font-family: sans-serif;
+  font-size: 13px;
+  color: grey;
 }
 </style>
