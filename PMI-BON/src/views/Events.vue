@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar class="new-background-color">
         <ion-title>Agenda</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -106,6 +106,11 @@ export default {
 ion-list {
   border-radius: 5px;
 }
+ion-title {
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: bold;
+}
 .waktu {
   margin-right: 8px !important;
 }
@@ -113,9 +118,11 @@ p {
   color: #666 !important;
   font-size: 12px;
 }
-
 .desc {
   margin-right: 8px !important;
   color: #666 !important;
+}
+.new-background-color {
+  --background: #ce0013;
 }
 </style>
