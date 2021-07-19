@@ -10,7 +10,7 @@
         <ion-item v-for="event in eventsData" :key="event.id">
           <ion-grid>
             <ion-row>
-              <ion-col>
+              <ion-col size="15">
                 <ion-label>
                   <h2>{{ event.judul_agenda }}</h2></ion-label
                 >
@@ -105,6 +105,7 @@ export default {
 <style scoped>
 ion-list {
   border-radius: 5px;
+  margin-top: 10px;
 }
 ion-title {
   color: #ffffff;
