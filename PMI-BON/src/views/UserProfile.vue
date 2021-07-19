@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar class="new-background-color">
         <ion-title>Profile</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -21,14 +21,14 @@
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col size="1">
+              <ion-col size="1.3">
                 <ion-icon :icon="person" />
               </ion-col>
               <ion-col>
                 <ion-label class="ion-label-custom">Name</ion-label>
               </ion-col>
               <ion-col size="10">
-                <ion-label>{{ name }}</ion-label>
+                <ion-label class="ion-label">{{ name }}</ion-label>
                 <p style="font-size:12px; padding-right:10px;">
                   This is not your username or pin. This name will be visible to
                   your account
@@ -40,18 +40,14 @@
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col size="1">
+              <ion-col size="1.3">
                 <ion-icon :icon="mail" />
               </ion-col>
               <ion-col>
                 <ion-label class="ion-label-custom">Email</ion-label>
               </ion-col>
               <ion-col size="10">
-                <ion-label>{{ email }}</ion-label>
-                <p style="font-size:12px; padding-right:10px;">
-                  This is your email for login. This email is only visible to
-                  your account
-                </p>
+                <ion-label class="ion-label">{{ email }}</ion-label>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -59,22 +55,51 @@
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col size="1">
+              <ion-col size="1.3">
                 <ion-icon :icon="call" />
               </ion-col>
               <ion-col>
                 <ion-label class="ion-label-custom">Phone</ion-label>
               </ion-col>
               <ion-col size="10">
-                <ion-label>{{ phone }}</ion-label>
+                <ion-label class="ion-label">{{ phone }}</ion-label>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-button @click="logOutUser" color="danger" size="small">
-          <ion-icon :icon="logOut" />
-          <p style="margin-left:5px;">Keluar</p>
-        </ion-button>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="1.3">
+                <ion-icon :icon="informationCircle" />
+              </ion-col>
+              <ion-col>
+                <ion-label class="ion-label-custom">Update</ion-label>
+              </ion-col>
+              <ion-col size="10">
+                <ion-label class="ion-label"
+                  >Update your information here</ion-label
+                >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="1.3">
+                <ion-icon :icon="logOut" />
+              </ion-col>
+              <ion-col>
+                <a @click="logOutUser">
+                  <ion-label class="ion-label-custom"
+                    >Log out from this account</ion-label
+                  >
+                </a>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-page>
@@ -94,10 +119,9 @@ import {
   IonCol,
   IonIcon,
   IonLabel,
-  IonButton,
   IonAvatar,
 } from "@ionic/vue";
-import { mail, call, person, logOut } from "ionicons/icons";
+import { mail, call, person, logOut, informationCircle } from "ionicons/icons";
 import { Storage } from "@ionic/storage";
 
 export default {
@@ -115,7 +139,7 @@ export default {
     IonCol,
     IonIcon,
     IonLabel,
-    IonButton,
+    // IonButton,
     IonAvatar,
   },
   data() {
@@ -124,6 +148,7 @@ export default {
       call,
       person,
       logOut,
+      informationCircle,
       name: "",
       email: "",
       phone: "",
@@ -210,14 +235,19 @@ ion-col {
   margin: auto;
 }
 
-ion-button {
-  float: right;
-  margin-right: 10px;
-  margin-top: 15px;
+ion-icon {
+  font-size: 18px;
+}
+
+ion-title {
+  color: #ffffff;
+  font-weight: bold;
+  font-family: sans-serif;
 }
 
 p {
-  margin-left: 0px;
+  margin-left: 5px;
+  color: dimgrey;
 }
 
 .name {
@@ -227,5 +257,13 @@ p {
   font-family: sans-serif;
   font-size: 13px;
   color: grey;
+}
+.ion-label {
+  font-family: sans-serif;
+  font-size: 14px;
+  margin-left: 7px;
+}
+.new-background-color {
+  --background: #ce0013;
 }
 </style>
