@@ -83,17 +83,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-ion-tab-bar,
-ion-tab-button {
-  background-color: #ce0013;
-}
-
-ion-icon {
-  color: #d7d8da;
-}
-
-ion-label {
-  color: #ffffff;
-}
-</style>
+<style scoped></style>

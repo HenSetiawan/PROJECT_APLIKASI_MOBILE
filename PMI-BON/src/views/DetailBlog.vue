@@ -8,28 +8,27 @@
     <ion-content :fullscreen="true">
       <ion-grid>
         <ion-row>
-          <h4 class="judul">Manfaat dan Efek Samping Donor Darah</h4>
+          <h4 class="judul">{{ blog.judul_blog }}</h4>
         </ion-row>
         <ion-row>
           <ion-col>
             <ion-text>
-              <p class="penulis">Nama Penulis</p>
+              <p class="penulis">{{ blog.username }}</p>
             </ion-text>
           </ion-col>
           <ion-col>
             <ion-text>
-              <p class="tanggal">11/04/2021</p>
+              <p class="tanggal">{{ blog.created_at }}</p>
             </ion-text>
           </ion-col>
         </ion-row>
         <ion-row>
-          <img src="../image/blood.jpg" class="img"/>
+          <img :src="blog.thumbnail" class="img" />
         </ion-row>
         <ion-row>
           <ion-text>
-            <p class="content">Kamu mungkin belum pernah membayangkan sebelumnya bahwa beberapa tetes darah yang kamu sumbangkan bisa menjadi sangat berarti bagi orang lain. Menurut Palang Merah Amerika, satu sumbangan darah dapat menyelamatkan sebanyak tiga nyawa dan setidaknya ada satu orang di Amerika Serikat yang membutuhkan darah setiap dua detik.
-            
-            Manfaat donor darah ternyata tidak hanya menguntungkan bagi si penerima saja lho, tetapi juga bagi para pendonor. Berikut manfaat donor darah untuk kesehatan.</p>
+            <p class="content" v-html="blog.content">
+            </p>
           </ion-text>
         </ion-row>
       </ion-grid>
@@ -38,33 +37,53 @@
 </template>
 
 <script>
-import { 
-  IonPage, 
-  IonHeader, 
-  IonToolbar, 
-  IonTitle, 
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
   IonContent,
   IonGrid,
   IonRow,
   IonCol,
   IonText,
-} from '@ionic/vue';
+} from "@ionic/vue";
 
-
-export default  {
-  name: 'Tab3',
+export default {
+  name: "Tab3",
   components: {
-    IonHeader, 
-    IonToolbar, 
-    IonTitle, 
-    IonContent, 
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
     IonPage,
     IonGrid,
     IonRow,
     IonCol,
     IonText,
   },
-}
+  props: ["id"],
+  data() {
+    return {
+      blog: "",
+    };
+  },
+  methods: {
+    async getBlogById() {
+      try {
+        const API = process.env.VUE_APP_API;
+        const response = await fetch(`${API}/v1/blog/${this.id}`);
+        const result = await response.json();
+        this.blog = result.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  created() {
+    this.getBlogById();
+  },
+};
 </script>
 <style scoped>
 .img {
@@ -74,6 +93,7 @@ export default  {
 }
 .penulis {
   margin: 10px 20px 20px 20px;
+  text-transform: capitalize;
 }
 .tanggal {
   margin: 10px 20px 20px 20px;

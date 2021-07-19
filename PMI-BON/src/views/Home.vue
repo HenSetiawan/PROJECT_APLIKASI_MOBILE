@@ -15,11 +15,11 @@
                   <ion-card-header>
                     <ion-card-title>{{ event.judul_agenda }}</ion-card-title>
                     <ion-card-subtitle>{{ event.waktu }}</ion-card-subtitle>
-                     <ion-card-subtitle>{{ event.lokasi }}</ion-card-subtitle>
+                    <ion-card-subtitle>{{ event.lokasi }}</ion-card-subtitle>
                   </ion-card-header>
 
                   <ion-card-content>
-                    {{event.deskripsi}}
+                    {{ event.deskripsi }}
                   </ion-card-content>
                 </ion-card>
               </ion-col>
@@ -38,43 +38,13 @@
         </ion-row>
       </ion-grid>
       <ion-list>
-        <ion-item href="/tabs/tab3">
+        <ion-item v-for="blog in blogsData" :key="blog.id" :href="blog.url">
           <ion-thumbnail item-start>
-            <img src="https://vuejs.org/images/logo.svg" />
+            <img :src="blog.blog.thumbnail" />
           </ion-thumbnail>
           <ion-label>
-            <h2>Blogs Title</h2>
-            <p>
-              Ionic Framework is an open source UI toolkit for building
-              performant, high-quality mobile and desktop apps using web
-              technologies
-            </p>
-          </ion-label>
-        </ion-item>
-        <ion-item href="/tabs/tab3">
-          <ion-thumbnail item-start>
-            <img src="https://vuejs.org/images/logo.svg" />
-          </ion-thumbnail>
-          <ion-label>
-            <h3>Blogs Title</h3>
-            <p>
-              Ionic Framework is an open source UI toolkit for building
-              performant, high-quality mobile and desktop apps using web
-              technologies
-            </p>
-          </ion-label>
-        </ion-item>
-        <ion-item href="/tabs/tab3">
-          <ion-thumbnail item-start>
-            <img src="https://vuejs.org/images/logo.svg"/>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>Blogs Title</h2>
-            <p>
-              Ionic Framework is an open source UI toolkit for building
-              performant, high-quality mobile and desktop apps using web
-              technologies
-            </p>
+            <h2>{{ blog.blog.judul_blog }}</h2>
+            <p v-html="blog.blog.content"></p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -150,11 +120,13 @@ export default {
     return {
       bloodData: [],
       eventsData: [],
+      blogsData: [],
     };
   },
   created() {
     this.getBloodData();
     this.getEventsData();
+    this.getAllBlogs();
   },
   methods: {
     getBloodData() {
@@ -182,6 +154,25 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    async getAllBlogs() {
+      try {
+        const API = process.env.VUE_APP_API;
+        const response = await fetch(`${API}/v1/blogs`);
+        const result = await response.json();
+        const temp = [];
+        result.data.forEach((element) => {
+          const tempData = {
+            blog: element,
+            url: `/tabs/details-blog/${element.id}`,
+          };
+          temp.push(tempData);
+        });
+
+        this.blogsData = temp;
+      } catch (error) {
+        console.lo(error);
+      }
     },
   },
 };

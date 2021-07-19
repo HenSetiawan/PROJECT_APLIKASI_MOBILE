@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar class="new-background-color">
+      <ion-toolbar>
         <ion-title>Agenda</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -108,7 +108,6 @@ ion-list {
   margin-top: 10px;
 }
 ion-title {
-  color: #ffffff;
   font-family: sans-serif;
   font-weight: bold;
 }
@@ -123,7 +122,5 @@ p {
   margin-right: 8px !important;
   color: #666 !important;
 }
-.new-background-color {
-  --background: #ce0013;
-}
+
 </style>

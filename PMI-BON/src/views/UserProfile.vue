@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar class="new-background-color">
+      <ion-toolbar>
         <ion-title>Profile</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -240,7 +240,6 @@ ion-icon {
 }
 
 ion-title {
-  color: #ffffff;
   font-weight: bold;
   font-family: sans-serif;
 }
@@ -262,8 +261,5 @@ p {
   font-family: sans-serif;
   font-size: 14px;
   margin-left: 7px;
-}
-.new-background-color {
-  --background: #ce0013;
 }
 </style>

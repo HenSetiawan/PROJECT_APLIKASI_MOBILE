@@ -70,8 +70,9 @@ const routes = [
         },
       },
       {
-        path: "detail-blog",
+        path: "details-blog/:id",
         component: () => import("@/views/DetailBlog.vue"),
+        props: true,
       },
     ],
   },
