@@ -6,27 +6,48 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-slides pager="true">
-        <ion-slide v-for="event in eventsData" :key="event.id">
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-card :key="event.id">
-                  <ion-card-header>
-                    <ion-card-title>{{ event.judul_agenda }}</ion-card-title>
-                    <ion-card-subtitle>{{ event.waktu }}</ion-card-subtitle>
-                    <ion-card-subtitle>{{ event.lokasi }}</ion-card-subtitle>
-                  </ion-card-header>
-
-                  <ion-card-content>
-                    {{ event.deskripsi }}
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-slide>
-      </ion-slides>
+      <swiper
+        :slides-per-view="3"
+        :space-between="50"
+        @swiper="onSwiper"
+        @slideChange="onSlideChange"
+      >
+        <swiper-slide v-for="event in eventsData" :key="event.id">
+          <ion-list>
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="15">
+                    <ion-label>
+                      <h2>{{ event.judul_agenda }}</h2></ion-label
+                    >
+                  </ion-col>
+                  <ion-col size="4">
+                    <ion-label>
+                      <h2 class="waktu">{{ event.waktu }}</h2></ion-label
+                    >
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p class="desc">{{ event.deskripsi }}</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="1">
+                    <ion-icon :icon="navigateCircle"></ion-icon>
+                  </ion-col>
+                  <ion-col>
+                    <ion-label>
+                      <p>{{ event.lokasi }}</p>
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-list>
+        </swiper-slide>
+      </swiper>
 
       <ion-grid>
         <ion-row>
@@ -75,52 +96,47 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonSlides,
-  IonSlide,
   IonCol,
   IonGrid,
   IonRow,
-  IonCard,
-  IonCardContent,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCardHeader,
   IonText,
   IonList,
   IonItem,
   IonLabel,
   IonThumbnail,
+  IonIcon,
 } from "@ionic/vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/swiper-bundle.css";
+
+import { navigateCircle } from "ionicons/icons";
 
 export default {
   name: "Tab1",
   components: {
+    IonIcon,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
     IonPage,
-    IonSlides,
-    IonSlide,
     IonCol,
     IonGrid,
     IonRow,
-    IonCard,
-    IonCardContent,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonCardHeader,
     IonText,
     IonList,
     IonItem,
     IonLabel,
     IonThumbnail,
+    Swiper,
+    SwiperSlide,
   },
   data() {
     return {
       bloodData: [],
       eventsData: [],
       blogsData: [],
+      navigateCircle,
     };
   },
   created() {
@@ -174,6 +190,12 @@ export default {
         console.lo(error);
       }
     },
+    onSwiper(swiper) {
+      console.log(swiper);
+    },
+    onSlideChange() {
+      console.log("slide change");
+    },
   },
 };
 </script>
@@ -201,6 +223,23 @@ h5 {
 ion-list {
   margin: 20px;
   border-radius: 5px;
+}
+ion-list {
+  border-radius: 5px;
+  margin-top: 10px;
+}
+ion-title {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+p {
+  color: #666 !important;
+  font-size: 12px;
+}
+.desc {
+  margin-left: 8px !important;
+  color: #666 !important;
 }
 
 ion-list ion-label {
