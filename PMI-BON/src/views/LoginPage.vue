@@ -84,6 +84,7 @@ import {
 import { Field, ErrorMessage, Form } from "vee-validate";
 import { person, key } from "ionicons/icons";
 import { Storage } from "@ionic/storage";
+import { Http } from "@capacitor-community/http";
 export default {
   name: "loginPage",
   components: {
@@ -112,22 +113,24 @@ export default {
     async onSubmit(values) {
       const API = process.env.VUE_APP_API;
       try {
-        const response = await fetch(`${API}/v1/auth/user/login`, {
-          method: "POST",
+        const options = {
+          url: `${API}/v1/auth/user/login`,
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: JSON.stringify(values),
-        });
+          data: { email: values.email, password: values.password },
+        };
+
+        const response = await Http.request({ ...options, method: "POST" });
 
         if (response.status == 401) {
           this.loginMessage = "Password atau Email anda salah";
           setTimeout(() => {
             this.loginMessage = "";
-          }, 3000);
+          }, 5000);
         } else {
-          const result = await response.json();
+          const result = response.data;
           console.log(result);
           const store = new Storage();
           await store.create();

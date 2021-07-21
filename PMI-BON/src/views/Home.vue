@@ -6,23 +6,18 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <swiper
-        :slides-per-view="3"
-        :space-between="50"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
-      >
+      <swiper>
         <swiper-slide v-for="event in eventsData" :key="event.id">
           <ion-list>
             <ion-item>
               <ion-grid>
                 <ion-row>
-                  <ion-col size="15">
+                  <ion-col>
                     <ion-label>
                       <h2>{{ event.judul_agenda }}</h2></ion-label
                     >
                   </ion-col>
-                  <ion-col size="4">
+                  <ion-col>
                     <ion-label>
                       <h2 class="waktu">{{ event.waktu }}</h2></ion-label
                     >
@@ -34,7 +29,7 @@
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col size="1">
+                  <ion-col>
                     <ion-icon :icon="navigateCircle"></ion-icon>
                   </ion-col>
                   <ion-col>
@@ -190,12 +185,6 @@ export default {
         console.lo(error);
       }
     },
-    onSwiper(swiper) {
-      console.log(swiper);
-    },
-    onSlideChange() {
-      console.log("slide change");
-    },
   },
 };
 </script>
@@ -244,5 +233,10 @@ p {
 
 ion-list ion-label {
   padding: 10px;
+}
+
+swiper-slide,
+swiper-slide-active {
+  width: 100% !important;
 }
 </style>
