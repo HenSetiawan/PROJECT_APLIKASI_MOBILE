@@ -48,7 +48,10 @@ export default {
       try {
         const store = new Storage();
         await store.create();
-        await store.set("accessUser", "ini adalah token user");
+        await store.set(
+          "exampleToken",
+          "reht943tj344m3fknreiooegklrmkgvklerkgler"
+        );
       } catch (error) {
         console.log(error);
       }
@@ -57,7 +60,7 @@ export default {
       try {
         const store = new Storage();
         await store.create();
-        const token = await store.get("accessUser");
+        const token = await store.get("exampleToken");
         this.token = token;
       } catch (error) {
         console.log(error);
