@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "PMI",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

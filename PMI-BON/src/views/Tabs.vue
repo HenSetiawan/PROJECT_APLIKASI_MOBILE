@@ -27,11 +27,6 @@
           <ion-icon :icon="person" />
           <ion-label>Akun</ion-label>
         </ion-tab-button>
-
-        <ion-tab-button tab="tab6" href="/tabs/debug">
-          <ion-icon :icon="person" />
-          <ion-label>Debug</ion-label>
-        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>

@@ -48,10 +48,6 @@ const routes = [
         component: () => import("@/views/LoginVolunteer.vue"),
       },
       {
-        path: "debug",
-        component: () => import("@/views/Debug.vue"),
-      },
-      {
         path: "profile",
         component: () => import("@/views/UserProfile.vue"),
         meta: {

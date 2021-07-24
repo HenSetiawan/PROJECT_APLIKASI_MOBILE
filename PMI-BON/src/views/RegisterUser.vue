@@ -96,6 +96,7 @@
           <ion-row class="error-message">
             <error-message name="confirm_password"></error-message>
           </ion-row>
+          <p class="error-message">{{ registerMessage }}</p>
           <ion-row>
             <ion-button color="danger" class="btn-login" type="submit"
               >Registrasi</ion-button
@@ -121,6 +122,7 @@ import {
 } from "@ionic/vue";
 import { person, key, mail, phonePortraitOutline } from "ionicons/icons";
 import { Field, ErrorMessage, Form } from "vee-validate";
+import { Http } from "@capacitor-community/http";
 
 export default {
   name: "Tab3",
@@ -146,32 +148,32 @@ export default {
       mail,
       phonePortraitOutline,
       API: process.env.VUE_APP_API,
+      registerMessage: "",
     };
   },
 
   methods: {
-    onSubmit(values) {
-      console.log(values);
-      const data = values;
-      console.log(data);
-      fetch(`${this.API}/v1/auth/user/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((result) => {
-          console.log(result);
-          this.$router.push("/tabs/login");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    async onSubmit(values) {
+      try {
+        const options = {
+          url: `${this.API}/v1/auth/user/register`,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          data: values,
+        };
+
+        const response = await Http.request({ ...options, method: "POST" });
+        if (response) {
+          this.registerMessage = response.data.message;
+          setTimeout(() => {
+            this.$router.push("/tabs/login");
+          }, 5000);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
     isRequired(value) {
       // if the field is empty

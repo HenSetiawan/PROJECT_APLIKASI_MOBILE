@@ -13,7 +13,7 @@
           </ion-thumbnail>
           <ion-label>
             <h2>{{ blog.blog.judul_blog }}</h2>
-            <p v-html="blog.blog.content"></p>
+            <p v-html="blog.preview"></p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -65,6 +65,7 @@ export default {
         result.data.forEach((element) => {
           const tempData = {
             blog: element,
+            preview:element.content.split(' ').slice(0,10).join(' '),
             url: `/tabs/details-blog/${element.id}`,
           };
           temp.push(tempData);

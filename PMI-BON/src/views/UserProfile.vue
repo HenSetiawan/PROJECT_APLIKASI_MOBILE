@@ -28,7 +28,7 @@
                 <ion-label class="ion-label-custom">Name</ion-label>
               </ion-col>
               <ion-col size="10">
-                <ion-label class="ion-label">{{ name }}</ion-label>
+                <ion-label class="ion-label name">{{ name }}</ion-label>
                 <p style="font-size:12px; padding-right:10px;">
                   This is not your username or pin. This name will be visible to
                   your account
@@ -162,8 +162,7 @@ export default {
         const token = await store.get("accessUser");
 
         const API = process.env.VUE_APP_API;
-        console.log(token);
-        const response = await fetch(`${API}/v1/user/`, {
+        const response = await fetch(`${API}/v1/user`, {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer  ${token}`,
@@ -171,15 +170,18 @@ export default {
         });
 
         if (response.status == 401) {
-          this.$router.push("/tabs/login/");
+          this.$router.push("/tabs/login");
           return;
         }
 
         const result = await response.json();
+        this.name = result.data.username;
+        this.email = result.data.email;
+        this.phone = result.data.no_hp;
         return result;
       } catch (error) {
         console.log(error);
-        this.$router.push("/tabs/login/");
+        this.$router.push("/tabs/login");
         return;
       }
     },
@@ -197,20 +199,15 @@ export default {
 
       if (response.status == 200) {
         await store.remove("accessUser");
+        this.name = "";
+        this.email = "";
+        this.phone = "";
         this.$router.push("/tabs/home");
       }
     },
   },
-  created() {
+  mounted() {
     this.getUserData()
-      .then((response) => {
-        this.name = response.data.username;
-        this.email = response.data.email;
-        this.phone = response.data.no_hp;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   },
 };
 </script>
